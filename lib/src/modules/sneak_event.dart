@@ -39,11 +39,13 @@ class SneakEvent extends Module {
         at: Entity.Self(),
         If: Condition.predicate(
           _isSneakingPredicate,
+          context,
         ),
         children: [
           File.execute(path + name, create: false),
         ],
       ),
+      _isSneakingPredicate // register predicate
     ]);
   }
 

@@ -7,6 +7,8 @@ import 'package:objd/src/basic/score.dart';
 import 'package:objd/src/basic/tag.dart';
 import 'package:objd/src/wrappers/data.dart';
 
+import '../../build/context.dart';
+
 /// The Condition class defines conditions for the if widget and more. It can also combines conditions and generates an argument list.
 class Condition {
   final List<Condition> _children = [];
@@ -52,8 +54,9 @@ class Condition {
   }
 
   /// checks for a predicate
-  Condition.predicate(Predicate cond) {
-    _generated = _ConditionUtil('predicate ' + cond.name);
+  Condition.predicate(Predicate cond, Context context) {
+    _generated =
+        _ConditionUtil('predicate ' + context.packId + ":" + cond.name);
   }
   // checks if the tag exists
   Condition.tag(Tag cond) {
@@ -181,12 +184,7 @@ class Condition {
       return;
     }
 
-    if (cond is Predicate) {
-      _generated = _ConditionUtil('predicate ' + cond.name);
-      return;
-    }
-
-    throw (' A Condition can just take in another Condition, Entity, Block, Data, Score, Predicate or Tag!');
+    throw (' A Condition can just take in another Condition, Entity, Block, Data, Score or Tag!');
   }
 
   void _invertGenerated() {
